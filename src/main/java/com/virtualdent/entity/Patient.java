@@ -1,7 +1,6 @@
 package com.virtualdent.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import javax.persistence.CascadeType;
@@ -87,6 +86,4 @@ public class Patient {
 				+ ", visitTime=" + visitTime + "]";
 	}
 	
-	
-
 }
