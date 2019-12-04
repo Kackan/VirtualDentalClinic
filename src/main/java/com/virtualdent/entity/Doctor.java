@@ -24,10 +24,6 @@ public class Doctor {
 	
 	@OneToMany(mappedBy="doctor",cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	private List<Patient>patients;
-
-	
-	
-	
 	
 	public Doctor() {
 		super();

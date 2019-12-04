@@ -15,7 +15,7 @@
 				value="jdbc:mysql://localhost:3306/virtualdentalclinic?useSSL=false&amp;serverTimezone=UTC" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password"
-				value="password" />
+				value="Wod@123" />
 				
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />

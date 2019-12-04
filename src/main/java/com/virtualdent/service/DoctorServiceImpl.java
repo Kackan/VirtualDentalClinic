@@ -3,6 +3,8 @@ package com.virtualdent.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.virtualdent.entity.Doctor;
 import com.virtualdent.repository.DoctorRepository;
@@ -27,14 +29,12 @@ public class DoctorServiceImpl implements DoctorService{
 
 	@Override
 	public void saveDoctor(Doctor doctor) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	@Override
 	public void deleteDoctor(int id) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	@Override
