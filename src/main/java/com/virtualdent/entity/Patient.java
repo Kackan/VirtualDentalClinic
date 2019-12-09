@@ -21,11 +21,8 @@ public class Patient {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	private PatientDetails details;
-	
 	@ManyToOne(cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	private Doctor doctor;
+	private Dentist dentist;
 	
 	@Column
 	private LocalDate visitDay;
@@ -33,11 +30,20 @@ public class Patient {
 	@Column
 	private LocalTime visitTime;
 	
+	@Column
+	private String firstName;
 	
+	@Column
+	private String lastName;
+	
+	@Column
+	private int number;
+	
+	@Column
+	private String address;
 
 	public Patient() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {
@@ -46,6 +52,14 @@ public class Patient {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Dentist getDentist() {
+		return dentist;
+	}
+
+	public void setDentist(Dentist dentist) {
+		this.dentist = dentist;
 	}
 
 	public LocalDate getVisitDay() {
@@ -64,26 +78,43 @@ public class Patient {
 		this.visitTime = visitTime;
 	}
 
-	public PatientDetails getDetails() {
-		return details;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setDetails(PatientDetails details) {
-		this.details = details;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public Doctor getDoctor() {
-		return doctor;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	@Override
 	public String toString() {
-		return "Patient [id=" + id + ", details=" + details + ", doctor=" + doctor + ", visitDay=" + visitDay
-				+ ", visitTime=" + visitTime + "]";
+		return "Patient [id=" + id + ", dentist=" + dentist + ", visitDay=" + visitDay + ", visitTime=" + visitTime
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", number=" + number + ", address=" + address
+				+ "]";
 	}
 	
 }

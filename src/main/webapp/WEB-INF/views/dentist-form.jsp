@@ -11,34 +11,31 @@
 <body>
 
 <div align="center">
-<h1>Dodaj doktora:</h1>
+<h1>Dodaj dentyste:</h1>
 
-
-<form:form action="save" method="post" modelAttribute="doctor">
-
-</form:form>
-
-<form:form action="save" method="post" modelAttribute="doctorDetails"> 
-
+<form:form action="save" method="post" modelAttribute="dentist">
 <table>
-
 <tr>
-<td>Imie:</td>
+<th>Imie:</th>
 <td><form:input path="firstName"/></td>
 </tr>
-
 <tr>
-<td>Nazwisko:</td>
+
+<th>Nazwisko:</th>
 <td><form:input path="lastName"/></td>
 </tr>
 
 <tr>
-<td>Numer telefonu:</td>
+<th>Adres:</th>
+<td><form:input path="address"/></td>
+</tr>
+<tr>
+<th>Nr telefonu:</th>
 <td><form:input path="number"/></td>
 </tr>
 
 <tr>
-<td>Specjalizacja:</td>
+<th>Specjalizacja</th>
 <td><form:input path="specialization"/></td>
 </tr>
 
@@ -47,6 +44,8 @@
 </tr>
 
 </table>
+
+
 </form:form>
 
 
