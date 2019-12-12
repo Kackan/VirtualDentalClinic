@@ -26,6 +26,8 @@ public class DentistController {
 	{
 		List<Dentist>dentists=service.getDentists();
 		model.addAttribute("dentists",dentists);
+		
+		System.out.println(dentists.get(0).getPatients());
 		return "dentist-home";
 	}
 	

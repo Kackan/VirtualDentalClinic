@@ -6,8 +6,10 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -35,13 +37,14 @@ public class Dentist {
 	@Column
 	private String address;
 	
-	@OneToMany(mappedBy="dentist",cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@OneToMany(mappedBy="dentist",cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},fetch=FetchType.EAGER)
 	private List<Patient>patients;
-		
+	
+	
 	public Dentist() {
 		super();
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -102,6 +105,8 @@ public class Dentist {
 
 	public void addPatient(Patient patient)
 	{
+		System.out.println("DENTIST=PATIENT+ADDER");
+		
 		if(patients==null) {
 		patients=new ArrayList<>();
 		}

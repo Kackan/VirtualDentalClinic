@@ -1,0 +1,36 @@
+[33mcommit fc49dc32a6d4e7b2f5568f1d6342b2d494841605[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Kackan <kackan@o2.pl>
+Date:   Wed Dec 4 19:25:06 2019 +0100
+
+    edit readme and add controllers + some views
+
+[33mcommit 85d3e7b3e8c1160e8c3c2075b40431322edb8cac[m[33m ([m[1;31morigin/master[m[33m)[m
+Merge: 1fba119 a3c67a1
+Author: Kackan <kackan@o2.pl>
+Date:   Sun Dec 1 22:51:07 2019 +0100
+
+    Merge branch 'master' of https://github.com/Kackan/VirtualDentalClinic
+
+[33mcommit 1fba119344cdcfbad6f69c56f688e2be9dc9e3d6[m
+Author: Kackan <kackan@o2.pl>
+Date:   Sun Dec 1 22:44:33 2019 +0100
+
+    second update, jpa repositories and more config files was added
+
+[33mcommit a3c67a1431d97e0cabfb9d461f34619cc7c37031[m
+Author: Kackan <58291758+Kackan@users.noreply.github.com>
+Date:   Sun Dec 1 21:14:10 2019 +0100
+
+    Update persistence.xml
+
+[33mcommit 0f823ba9bc9598a636578af45fa136e0bdd4e9ab[m
+Author: Kackan <kackan@o2.pl>
+Date:   Sun Dec 1 21:10:38 2019 +0100
+
+    first update, entities and config files was added
+
+[33mcommit d4f2c711a62c560f633d17290ab9a518b410a955[m
+Author: Kackan <kackan@o2.pl>
+Date:   Sun Dec 1 21:08:46 2019 +0100
+
+    first update

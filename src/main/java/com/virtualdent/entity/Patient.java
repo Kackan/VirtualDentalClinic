@@ -25,10 +25,7 @@ public class Patient {
 	private Dentist dentist;
 	
 	@Column
-	private LocalDate visitDay;
-	
-	@Column
-	private LocalTime visitTime;
+	private String visitDay;
 	
 	@Column
 	private String firstName;
@@ -53,29 +50,24 @@ public class Patient {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	
+
+	public String getVisitDay() {
+		return visitDay;
+	}
+
+	public void setVisitDay(String visitDay) {
+		this.visitDay = visitDay;
+	}
 
 	public Dentist getDentist() {
 		return dentist;
 	}
 
 	public void setDentist(Dentist dentist) {
+		System.out.println("////////////PATIENT:DENTIS=SETTER");
 		this.dentist = dentist;
-	}
-
-	public LocalDate getVisitDay() {
-		return visitDay;
-	}
-
-	public void setVisitDay(LocalDate visitDay) {
-		this.visitDay = visitDay;
-	}
-
-	public LocalTime getVisitTime() {
-		return visitTime;
-	}
-
-	public void setVisitTime(LocalTime visitTime) {
-		this.visitTime = visitTime;
 	}
 
 	public String getFirstName() {
@@ -112,7 +104,7 @@ public class Patient {
 
 	@Override
 	public String toString() {
-		return "Patient [id=" + id + ", dentist=" + dentist + ", visitDay=" + visitDay + ", visitTime=" + visitTime
+		return "Patient [id=" + id + ", dentist=" + dentist + " visitDay: "+visitDay 
 				+ ", firstName=" + firstName + ", lastName=" + lastName + ", number=" + number + ", address=" + address
 				+ "]";
 	}
