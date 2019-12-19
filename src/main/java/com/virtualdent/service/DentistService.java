@@ -8,11 +8,11 @@ public interface DentistService {
 	
 	public List<Dentist>getDentists();
 	
-	public Dentist getDentist(int id);
+	public Dentist getDentist(Integer id);
 	
 	public void saveDentist(Dentist dentist);
 	
-	public void deleteDentist(int id);
+	public void deleteDentist(Integer id);
 	
 	public List<Dentist>search(String keyword);
 }

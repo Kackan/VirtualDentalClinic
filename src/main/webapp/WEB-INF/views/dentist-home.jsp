@@ -38,6 +38,8 @@
 <td>${dentist.address}</td>
 <td>${dentist.number}</td>
 <td>${dentist.specialization}</td>
+<td><a href="showVisitForm?id=${dentist.id}">Dodaj dni robocze</a>
+</td>
 </tr>
 </c:forEach>
 

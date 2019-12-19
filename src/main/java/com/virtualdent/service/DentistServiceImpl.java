@@ -23,7 +23,7 @@ public class DentistServiceImpl implements DentistService{
 	}
 
 	@Override
-	public Dentist getDentist(int id) {
+	public Dentist getDentist(Integer id) {
 		return repo.findById(id).get();
 	}
 
@@ -33,7 +33,7 @@ public class DentistServiceImpl implements DentistService{
 	}
 
 	@Override
-	public void deleteDentist(int id) {
+	public void deleteDentist(Integer id) {
 		repo.deleteById(id);
 	}
 

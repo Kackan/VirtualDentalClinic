@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.virtualdent.entity.Dentist;
+import com.virtualdent.entity.Visit;
 import com.virtualdent.service.DentistService;
 
 @Controller
@@ -27,7 +29,6 @@ public class DentistController {
 		List<Dentist>dentists=service.getDentists();
 		model.addAttribute("dentists",dentists);
 		
-		System.out.println(dentists.get(0).getPatients());
 		return "dentist-home";
 	}
 	
@@ -44,5 +45,23 @@ public class DentistController {
 		service.saveDentist(dentist);
 		return "redirect:/dentist/home";		
 	}
-
+	
+	@GetMapping("/showVisitForm")
+	public String showVisitForm(@RequestParam Integer id, Model model)
+	{
+		Dentist dentist=service.getDentist(id);
+		model.addAttribute("dentist", dentist);
+		model.addAttribute("visit",new Visit());
+		return "visit-form";
+	}
+	
+	@RequestMapping("/saveVisit")
+	public String saveVisit(@RequestParam("id") Integer id, @ModelAttribute("visit") Visit visit)
+	{
+		Dentist dentist=service.getDentist(id);
+		dentist.addVisit(visit);
+		service.saveDentist(dentist);
+		return "redirect:/dentist/home";
+	}
+	
 }
