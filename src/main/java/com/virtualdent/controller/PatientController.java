@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.virtualdent.entity.Dentist;
 import com.virtualdent.entity.Patient;
+import com.virtualdent.entity.Visit;
 import com.virtualdent.service.DentistService;
 import com.virtualdent.service.PatientService;
+import com.virtualdent.service.VisitService;
 
 @Controller
 @RequestMapping("/patient")
@@ -24,6 +25,10 @@ public class PatientController {
 	
 	@Autowired
 	private PatientService patientService;
+
+	@Autowired
+	private VisitService visitService;
+	
 	
 	@RequestMapping("/home")
 	public String home(Model model)
@@ -33,23 +38,33 @@ public class PatientController {
 		return "patient-home";
 	}
 	
-	@RequestMapping("/showForm")
-	public String showForm(@RequestParam int id, Model model)
+	@RequestMapping("/showPatientForm")
+	public String showForm(@RequestParam Integer id, Model model)
 	{
 		Dentist dentist=dentistService.getDentist(id);
-		Patient patient=new Patient();
-		model.addAttribute("patient",patient);
-		model.addAttribute("dentist",dentist);
-		return "save-form";
+		List<Visit>visits=dentist.getCurrentVisits();
+		model.addAttribute("visits",visits);
+		return "choose-visit-form";
 	}
 	
-	@PostMapping("/savePatient")
-	public String savePatient(@RequestParam int id,@ModelAttribute("patient") Patient patient)
+	@RequestMapping("/saveVisit")
+	public String saveVisit(@RequestParam("visitId") Integer visitId,Model model)
 	{
-		Dentist dentist=dentistService.getDentist(id);
-		dentist.addPatient(patient);
+		Visit visit=visitService.getVisit(visitId);
+		visitService.saveVisit(visit);
+		model.addAttribute("patient",new Patient());
+		model.addAttribute("visit",visit);
+		return "patient-form";
+	}
+	
+	
+	@RequestMapping("/savePatient")
+	public String savePatient(@RequestParam Integer visitId, @ModelAttribute("patient") Patient patient)
+	{
+		Visit visit=visitService.getVisit(visitId);
+		patient.setId(7);
+		patient.setVisitDay(visit);
 		patientService.savePatient(patient);
 		return "redirect:/patient/home";
-	}
-
-}
+	}	
+}  

@@ -12,6 +12,10 @@
 	<properties>
 		<spring.version>5.1.5.RELEASE</spring.version>
 		<hibernate.version>5.4.1.Final</hibernate.version>
+
+		<java.encoding>UTF-8</java.encoding>
+		<project.build.sourceEncoding>${java.encoding}</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>${java.encoding}</project.reporting.outputEncoding>
 	</properties>
 
 
@@ -78,7 +82,6 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>

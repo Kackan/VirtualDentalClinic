@@ -22,18 +22,17 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 	@Override
-	public Patient getPatient(int id) {
+	public Patient getPatient(Integer id) {
 		return repo.findById(id).get();
 	}
 
 	@Override
-	@Transactional
 	public void savePatient(Patient patient) {
 		repo.save(patient);
 	}
 
 	@Override
-	public void deletePatient(int id) {
+	public void deletePatient(Integer id) {
 		repo.deleteById(id);
 	}
 
@@ -42,5 +41,4 @@ public class PatientServiceImpl implements PatientService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

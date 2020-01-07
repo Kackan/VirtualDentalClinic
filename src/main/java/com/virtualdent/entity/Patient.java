@@ -1,13 +1,12 @@
 package com.virtualdent.entity;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,13 +15,10 @@ public class Patient {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
-	@ManyToOne(cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	private Dentist dentist;
-	
-	@Column
-	private String visitDay;
+	@OneToOne(cascade=CascadeType.ALL)
+	private Visit visitDay;
 	
 	@Column
 	private String firstName;
@@ -35,36 +31,17 @@ public class Patient {
 	
 	@Column
 	private String address;
-
+	
 	public Patient() {
-		super();
+		
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
-	}
-	
-	
-
-	public String getVisitDay() {
-		return visitDay;
-	}
-
-	public void setVisitDay(String visitDay) {
-		this.visitDay = visitDay;
-	}
-
-	public Dentist getDentist() {
-		return dentist;
-	}
-
-	public void setDentist(Dentist dentist) {
-		System.out.println("////////////PATIENT:DENTIS=SETTER");
-		this.dentist = dentist;
 	}
 
 	public String getFirstName() {
@@ -98,12 +75,34 @@ public class Patient {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	public Visit getVisitDay() {
+		return visitDay;
+	}
 
-	@Override
-	public String toString() {
-		return "Patient [id=" + id + ", dentist=" + dentist + " visitDay: "+visitDay 
-				+ ", firstName=" + firstName + ", lastName=" + lastName + ", number=" + number + ", address=" + address
-				+ "]";
+	public void setVisitDay(Visit visitDay) {
+		
+		if(sameAsFormer(visitDay))
+		{
+			return;
+		}
+		
+		Visit oldVisit=this.visitDay;
+		this.visitDay=visitDay;
+		
+		/*if(oldVisit!=null)
+		{
+			oldVisit.setPatient(null);
+		}
+		if(visitDay!=null) {
+			visitDay.setPatient(this);
+		}*/
+	}
+	
+	private boolean sameAsFormer(Visit visit)
+	{
+		return visitDay== null?
+				visit==null : visitDay.equals(visit);
 	}
 
 	@Override
@@ -111,9 +110,8 @@ public class Patient {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((dentist == null) ? 0 : dentist.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + number;
 		result = prime * result + ((visitDay == null) ? 0 : visitDay.hashCode());
@@ -134,17 +132,15 @@ public class Patient {
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
-		if (dentist == null) {
-			if (other.dentist != null)
-				return false;
-		} else if (!dentist.equals(other.dentist))
-			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
 				return false;
 		} else if (!firstName.equals(other.firstName))
 			return false;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (lastName == null) {
 			if (other.lastName != null)
@@ -159,5 +155,5 @@ public class Patient {
 		} else if (!visitDay.equals(other.visitDay))
 			return false;
 		return true;
-	}	
+	}
 }

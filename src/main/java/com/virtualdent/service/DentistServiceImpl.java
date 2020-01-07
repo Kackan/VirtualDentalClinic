@@ -34,6 +34,7 @@ public class DentistServiceImpl implements DentistService{
 
 	@Override
 	public void deleteDentist(Integer id) {
+		System.out.println("DELETE##########");
 		repo.deleteById(id);
 	}
 

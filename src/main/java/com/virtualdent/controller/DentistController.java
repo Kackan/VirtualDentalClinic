@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.virtualdent.entity.Dentist;
 import com.virtualdent.entity.Visit;
 import com.virtualdent.service.DentistService;
+import com.virtualdent.service.VisitService;
 
 @Controller
 @RequestMapping("/dentist")
@@ -22,6 +23,8 @@ public class DentistController {
 	@Autowired
 	private DentistService service;
 	
+	@Autowired
+	private VisitService visitService;
 	
 	@GetMapping("/home")
 	public String homePage(Model model)
@@ -46,7 +49,22 @@ public class DentistController {
 		return "redirect:/dentist/home";		
 	}
 	
-	@GetMapping("/showVisitForm")
+	@RequestMapping("/delete")
+	public String deleteDentist(@RequestParam("id") Integer id)
+	{
+		service.deleteDentist(id);
+		return "redirect:/dentist/home";
+	}
+	
+	@RequestMapping("/edit")
+	public String editDentist(@RequestParam("id") Integer id, Model model)
+	{
+		Dentist dentist=service.getDentist(id);
+		model.addAttribute(dentist);
+		return "dentist-edit-form";
+	}
+	
+	@RequestMapping("/showVisitForm")
 	public String showVisitForm(@RequestParam Integer id, Model model)
 	{
 		Dentist dentist=service.getDentist(id);
@@ -63,5 +81,18 @@ public class DentistController {
 		service.saveDentist(dentist);
 		return "redirect:/dentist/home";
 	}
-	
+
+	@RequestMapping("/deleteVisit")
+	public String deleteVisit(@RequestParam("id")Integer id,@RequestParam("dentistId")Integer dentistId, Model model)
+	{
+		Dentist dentist=service.getDentist(dentistId);
+		System.out.println(dentist.getVisits());
+		
+		Visit v=visitService.getVisit(id);
+		System.out.println(v.toString());
+		visitService.deleteVisit(id);
+		model.addAttribute("dentist",dentist);
+		model.addAttribute("visit",v);
+		return "visit-delete";
+	}
 }

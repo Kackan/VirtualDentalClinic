@@ -1,8 +1,10 @@
 <html>
 <body>
-<h2>Hello World!</h2>
-
-<a href="dentist/home">Doctor controller</a>
-<a href="patient/home">Patient Controller</a>
+<div align="center">
+<h2>Wybierz panel</h2>
+<a href="dentist/home">Panel Dentysty</a>
+<a href="patient/home">Panel Pacjenta</a>
+</div>
 </body>
+
 </html>

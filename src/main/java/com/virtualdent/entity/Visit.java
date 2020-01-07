@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -33,6 +34,9 @@ public class Visit implements Serializable {
 	@ManyToMany(cascade={CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH}, fetch=FetchType.EAGER)
 	private List<Dentist>dentists;
 
+	@OneToOne(mappedBy="visitDay")
+	private Patient patient;
+	
 	public Visit() {}
 	
 	public Integer getId() {
@@ -69,9 +73,8 @@ public class Visit implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Visit [id=" + id + ", day=" + day + ", time=" + time +"]";
+		return "Wizyta dnia: "+ day+" o godzinie:" + time + " ID: "+id;
 	}
-
 	
 	public void addDentist(Dentist dentist)
 	{
@@ -80,6 +83,35 @@ public class Visit implements Serializable {
 			dentists=new ArrayList<>();
 		}
 		dentists.add(dentist);
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		
+		if(sameAsFormer(patient))
+		{
+			return;
+		}
+		Patient oldPatient=this.patient;
+		this.patient=patient;
+		
+		if(oldPatient!=null)
+		{
+			oldPatient.setVisitDay(null);
+		}
+		if(patient!=null)
+		{
+			patient.setVisitDay(this);
+		}
+	}
+	
+	private boolean sameAsFormer(Patient newPatient)
+	{
+		return patient==null ?
+		newPatient==null: patient.equals(newPatient);
 	}
 
 	@Override
@@ -123,8 +155,6 @@ public class Visit implements Serializable {
 		} else if (!time.equals(other.time))
 			return false;
 		return true;
-	}
+	}	
 
-	
-	
 }

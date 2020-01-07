@@ -15,6 +15,7 @@ public class WebMvcConfig {
 			InternalResourceViewResolver viewResolver=new InternalResourceViewResolver();
 			viewResolver.setPrefix("/WEB-INF/views/");
 			viewResolver.setSuffix(".jsp");
+			viewResolver.setContentType("text/html;charset=UTF-8");
 			return viewResolver;
 		}
 }

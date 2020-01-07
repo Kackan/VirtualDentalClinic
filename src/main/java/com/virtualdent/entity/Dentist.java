@@ -3,6 +3,7 @@ package com.virtualdent.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,47 +14,57 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
-@Table(name="dentysta")
-public class Dentist implements Serializable{
+@Table(name = "dentysta")
+public class Dentist implements Serializable {
 
 	private static final long serialVersionUID = 3128830699411486597L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
-	
+
 	@Column
 	private String firstName;
-	
+
 	@Column
 	private String lastName;
-	
+
 	@Column
 	private String specialization;
-	
+
 	@Column
 	private int number;
-	
+
 	@Column
 	private String address;
 	
-	@OneToMany(mappedBy="dentist",cascade= {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},fetch=FetchType.EAGER)
-	private List<Patient>patients;
-	
-	@ManyToMany(mappedBy="dentists", cascade=CascadeType.ALL)
+	@Column
+	private String comment;
+
+	@ManyToMany(mappedBy = "dentists", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<Visit>visits;
+	private List<Visit> visits;
 	
+	@OneToMany(mappedBy="dentist",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	private List<Mark>marks;
+
 	public Dentist() {
 	}
-	
+
+	public List<Mark> getMarks() {
+		return marks;
+	}
+
+	public void setMarks(List<Mark> marks) {
+		this.marks = marks;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -102,46 +113,53 @@ public class Dentist implements Serializable{
 		this.address = address;
 	}
 
-
-	public List<Patient> getPatients() {
-		return patients;
-	}
-
-
-	public void setPatients(List<Patient> patients) {
-		this.patients = patients;
-	}
-	
-	
-
 	public List<Visit> getVisits() {
 		return visits;
+	}
+	
+	public List<Visit>getCurrentVisits()
+	{
+	List<Visit> currentVisits = new ArrayList<>();
+		
+		visits.forEach(v->{
+			if(v.getPatient()==null)
+			{
+				currentVisits.add(v);
+			}
+		});
+		return currentVisits;
+	
 	}
 
 	public void setVisits(List<Visit> visits) {
 		this.visits = visits;
 	}
 
-	public void addPatient(Patient patient)
-	{
-		System.out.println("DENTIST=PATIENT+ADDER");
-		
-		if(patients==null) {
-		patients=new ArrayList<>();
-		}
-		
-		patient.setDentist(this);
-		patients.add(patient);
-	}
-	
-	public void addVisit(Visit visit)
-	{
-		if(visits==null)
-		{
-			visits=new ArrayList<>();
+	public void addVisit(Visit visit) {
+		if (visits == null) {
+			visits = new ArrayList<>();
 		}
 		visit.addDentist(this);
 		visits.add(visit);
+	}
+	
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	
+	public void addComment(Mark mark)
+	{
+		if(marks==null)
+		{
+			marks=new ArrayList<>();
+		}
+		mark.setDentist(this);
+		marks.add(mark);
 	}
 
 	@Override
@@ -153,7 +171,6 @@ public class Dentist implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + number;
-		result = prime * result + ((patients == null) ? 0 : patients.hashCode());
 		result = prime * result + ((specialization == null) ? 0 : specialization.hashCode());
 		result = prime * result + ((visits == null) ? 0 : visits.hashCode());
 		return result;
@@ -190,11 +207,6 @@ public class Dentist implements Serializable{
 			return false;
 		if (number != other.number)
 			return false;
-		if (patients == null) {
-			if (other.patients != null)
-				return false;
-		} else if (!patients.equals(other.patients))
-			return false;
 		if (specialization == null) {
 			if (other.specialization != null)
 				return false;
@@ -208,4 +220,11 @@ public class Dentist implements Serializable{
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Dentist [firstName=" + firstName + ", lastName=" + lastName + ", specialization=" + specialization
+				+ "]";
+	}
+	
+	
 }

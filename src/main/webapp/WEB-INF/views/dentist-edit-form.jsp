@@ -1,20 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-    
+        
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Dentist Form</title>
+<title>Edycja</title>
 </head>
 <body>
-
-<div align="center">
-<h1>Dodaj dentystę:</h1>
-
 <form:form action="save" method="post" modelAttribute="dentist">
 <table>
+
+<tr>
+<td>ID:</td>
+<td>${dentist.id}</td>
+<form:hidden path="id"/>
+</tr>
+
 <tr>
 <th>Imię:</th>
 <td><form:input path="firstName"/></td>
@@ -49,12 +52,8 @@
 </tr>
 
 </table>
-
-
 </form:form>
 
-
-</div>
 
 
 </body>
