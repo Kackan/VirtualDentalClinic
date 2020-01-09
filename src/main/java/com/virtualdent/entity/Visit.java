@@ -16,29 +16,30 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="wizyta")
+@Table(name = "wizyta")
 public class Visit implements Serializable {
-	
+
 	private static final long serialVersionUID = -135088128548004469L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
-	
+
 	@Column
 	private String day;
-	
+
 	@Column
 	private String time;
-	
-	@ManyToMany(cascade={CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH}, fetch=FetchType.EAGER)
-	private List<Dentist>dentists;
 
-	@OneToOne(mappedBy="visitDay")
+	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.EAGER)
+	private List<Dentist> dentists;
+
+	@OneToOne(mappedBy = "visitDay")
 	private Patient patient;
-	
-	public Visit() {}
-	
+
+	public Visit() {
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -73,14 +74,12 @@ public class Visit implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Wizyta dnia: "+ day+" o godzinie:" + time + " ID: "+id;
+		return "Wizyta dnia: " + day + " o godzinie:" + time + " ID: " + id;
 	}
-	
-	public void addDentist(Dentist dentist)
-	{
-		if(dentists==null)
-		{
-			dentists=new ArrayList<>();
+
+	public void addDentist(Dentist dentist) {
+		if (dentists == null) {
+			dentists = new ArrayList<>();
 		}
 		dentists.add(dentist);
 	}
@@ -90,28 +89,23 @@ public class Visit implements Serializable {
 	}
 
 	public void setPatient(Patient patient) {
-		
-		if(sameAsFormer(patient))
-		{
+
+		if (sameAsFormer(patient)) {
 			return;
 		}
-		Patient oldPatient=this.patient;
-		this.patient=patient;
-		
-		if(oldPatient!=null)
-		{
+		Patient oldPatient = this.patient;
+		this.patient = patient;
+
+		if (oldPatient != null) {
 			oldPatient.setVisitDay(null);
 		}
-		if(patient!=null)
-		{
+		if (patient != null) {
 			patient.setVisitDay(this);
 		}
 	}
-	
-	private boolean sameAsFormer(Patient newPatient)
-	{
-		return patient==null ?
-		newPatient==null: patient.equals(newPatient);
+
+	private boolean sameAsFormer(Patient newPatient) {
+		return patient == null ? newPatient == null : patient.equals(newPatient);
 	}
 
 	@Override
@@ -155,6 +149,5 @@ public class Visit implements Serializable {
 		} else if (!time.equals(other.time))
 			return false;
 		return true;
-	}	
-
+	}
 }

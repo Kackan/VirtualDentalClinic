@@ -3,7 +3,6 @@ package com.virtualdent.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -50,6 +49,7 @@ public class Dentist implements Serializable {
 	@ManyToMany(mappedBy = "dentists", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Visit> visits;
+	
 	
 	@OneToMany(mappedBy="dentist",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<Mark>marks;

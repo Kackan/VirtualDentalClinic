@@ -14,7 +14,7 @@ public interface VisitService
 	
 	public void saveVisit(Visit visit);
 	
-	public void deleteVisit(Integer id);
+	public void deleteVisit(String idD, String idV);
 	
 	public List<Visit>search(String keyword);
 	

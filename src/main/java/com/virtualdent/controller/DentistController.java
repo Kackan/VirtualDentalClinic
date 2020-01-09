@@ -1,6 +1,7 @@
 package com.virtualdent.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,6 @@ public class DentistController {
 	{
 		List<Dentist>dentists=service.getDentists();
 		model.addAttribute("dentists",dentists);
-		
 		return "dentist-home";
 	}
 	
@@ -83,16 +83,24 @@ public class DentistController {
 	}
 
 	@RequestMapping("/deleteVisit")
-	public String deleteVisit(@RequestParam("id")Integer id,@RequestParam("dentistId")Integer dentistId, Model model)
+	public String deleteVisit(@RequestParam Map<String,String>ids)
 	{
-		Dentist dentist=service.getDentist(dentistId);
-		System.out.println(dentist.getVisits());
-		
-		Visit v=visitService.getVisit(id);
-		System.out.println(v.toString());
-		visitService.deleteVisit(id);
-		model.addAttribute("dentist",dentist);
-		model.addAttribute("visit",v);
-		return "visit-delete";
+		visitService.deleteVisit(ids.get("dentistId"), ids.get("visitId"));
+		return "redirect:/dentist/home";
+	}
+	
+	@RequestMapping("/saveEditedVisit")
+	public String saveEditedVisit(@ModelAttribute("visit") Visit visit)
+	{
+		visitService.saveVisit(visit);
+		return "redirect:/dentist/home";
+	}
+	
+	@RequestMapping("/editVisit")
+	public String editVisit(@RequestParam("idVisit") Integer id, Model model)
+	{
+		Visit visit=visitService.getVisit(id);
+		model.addAttribute("visit",visit);
+		return "visit-edit-form";
 	}
 }
