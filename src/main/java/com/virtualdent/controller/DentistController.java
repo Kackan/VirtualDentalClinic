@@ -3,9 +3,12 @@ package com.virtualdent.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,10 +46,11 @@ public class DentistController {
 	}
 	
 	@PostMapping("/save")
-	public String saveDentist(@ModelAttribute("dentist")Dentist dentist)
+	public String saveDentist(@Valid @ModelAttribute("dentist")Dentist dentist, BindingResult bindingResult)
 	{
 		service.saveDentist(dentist);
-		return "redirect:/dentist/home";		
+		return "redirect:/dentist/home";
+		
 	}
 	
 	@RequestMapping("/delete")
@@ -90,17 +94,27 @@ public class DentistController {
 	}
 	
 	@RequestMapping("/saveEditedVisit")
-	public String saveEditedVisit(@ModelAttribute("visit") Visit visit)
+	public String saveEditedVisit(@RequestParam("dentistId")Integer id,@ModelAttribute("visit") Visit visit)
 	{
+		Dentist dentist=service.getDentist(id);
+		dentist.addVisit(visit);
+		visitService.deleteVisit(Integer.toString(id), Integer.toString(visit.getId()));
 		visitService.saveVisit(visit);
-		return "redirect:/dentist/home";
+		//service.saveDentist(dentist);
+		return "visit-result";
+		
+		//"xddredirect:/dentist/home";
 	}
 	
 	@RequestMapping("/editVisit")
-	public String editVisit(@RequestParam("idVisit") Integer id, Model model)
+	public String editVisit(/*@RequestParam("idVisit") Integer id,*/@RequestParam Map<String,String>ids,Model model)
 	{
-		Visit visit=visitService.getVisit(id);
+		Map<String,Integer>map=visitService.editVisit(ids.get("idVisit"), ids.get("idDentist"));
+		
+		Visit visit=visitService.getVisit(map.get("visit"));
+		model.addAttribute("dentist",map.get("dentist"));
 		model.addAttribute("visit",visit);
+		//visitService.deleteVisit(ids.get("idVisit"), ids.get("idDentist"));
 		return "visit-edit-form";
 	}
 }

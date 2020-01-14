@@ -10,7 +10,7 @@
 </head>
 <body>
 <body>
-<form:form action="saveEditedVisit" method="post" modelAttribute="visit">
+<form:form action="saveEditedVisit?dentistId=${dentist}" method="post" modelAttribute="visit">
 <table>
 
 <tr>

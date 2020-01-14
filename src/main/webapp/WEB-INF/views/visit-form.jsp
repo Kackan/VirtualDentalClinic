@@ -49,7 +49,7 @@
 <td>${dv.day}</td>
 <td>${dv.time}</td>
 <td><a href="deleteVisit?visitId=${dv.id}&dentistId=${dentist.id}">Usuń</a>
-<a href="editVisit?idVisit=${dv.id}">Edytuj</a></td>
+<a href="editVisit?idVisit=${dv.id}&idDentist=${dentist.id}">Edytuj</a></td>
 </tr>
 </c:forEach>
 </table>

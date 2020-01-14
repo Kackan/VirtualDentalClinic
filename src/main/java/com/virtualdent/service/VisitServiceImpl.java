@@ -1,11 +1,13 @@
 package com.virtualdent.service;
 
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 import com.virtualdent.entity.Dentist;
 import com.virtualdent.entity.Visit;
@@ -52,6 +54,17 @@ public class VisitServiceImpl implements VisitService{
 		visits.remove(visit);
 		visitRepo.deleteById(idVisit);
 	}
+	
+	public Map<String,Integer> editVisit(String idV, String idD)
+	{
+		Map<String,Integer>map=new HashMap<>();
+		Integer idDentist=Integer.parseInt(idD);
+		Integer idVisit=Integer.parseInt(idV);
+		map.put("dentist", idDentist);
+		map.put("visit", idVisit);
+		return map;
+	}
+	
 	
 	@Override
 	public List<Visit> search(String keyword) {

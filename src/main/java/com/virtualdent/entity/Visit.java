@@ -115,6 +115,7 @@ public class Visit implements Serializable {
 		result = prime * result + ((day == null) ? 0 : day.hashCode());
 		result = prime * result + ((dentists == null) ? 0 : dentists.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((patient == null) ? 0 : patient.hashCode());
 		result = prime * result + ((time == null) ? 0 : time.hashCode());
 		return result;
 	}
@@ -142,6 +143,11 @@ public class Visit implements Serializable {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (patient == null) {
+			if (other.patient != null)
+				return false;
+		} else if (!patient.equals(other.patient))
 			return false;
 		if (time == null) {
 			if (other.time != null)
