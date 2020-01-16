@@ -7,6 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Dentist Form</title>
+<style>
+.error
+{
+color:red;
+}
+</style>
 </head>
 <body>
 
@@ -18,6 +24,7 @@
 <tr>
 <th>Imię:</th>
 <td><form:input path="firstName"/></td>
+<form:errors path="firstName" cssClass="error"></form:errors>
 </tr>
 <tr>
 

@@ -31,6 +31,8 @@ public class Dentist implements Serializable {
 	private Integer id;
 
 	@Column
+	@NotNull(message="* wymagane")
+	@Size(min=2)
 	private String firstName;
 
 	@Column

@@ -48,9 +48,14 @@ public class DentistController {
 	@PostMapping("/save")
 	public String saveDentist(@Valid @ModelAttribute("dentist")Dentist dentist, BindingResult bindingResult)
 	{
+		if(bindingResult.hasErrors())
+		{
+			return "redirect:/dentist/showForm";
+		}
+		else {
 		service.saveDentist(dentist);
-		return "redirect:/dentist/home";
-		
+		return "redirect:/dentist/home";		
+		}
 	}
 	
 	@RequestMapping("/delete")
