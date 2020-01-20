@@ -14,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -31,8 +29,6 @@ public class Dentist implements Serializable {
 	private Integer id;
 
 	@Column
-	@NotNull(message="* wymagane")
-	@Size(min=2)
 	private String firstName;
 
 	@Column
