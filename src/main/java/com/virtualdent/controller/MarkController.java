@@ -44,8 +44,9 @@ public class MarkController {
 	@RequestMapping("/addComment")
 	public String addComment(@RequestParam Integer id,Model model)
 	{
-		Dentist dentist=dentistService.getDentist(id);
 		Mark mark=new Mark();
+		Dentist dentist=dentistService.getDentist(id);
+		
 		model.addAttribute("dentist",dentist);
 		model.addAttribute("mark",mark);
 		return "comment-form";

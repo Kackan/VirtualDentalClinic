@@ -25,6 +25,7 @@ width: 30%;
 <p>Komentarz:</p><form:textarea path="comment"/>
 <br />
 <p>Nick:</p><form:input path="author"/>
+<input type="submit" value="Akceptuj"/>
 </div>
 </form:form>
 

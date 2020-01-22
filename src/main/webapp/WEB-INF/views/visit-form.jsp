@@ -33,7 +33,6 @@
 
 <br/><br/>
 
-<!-- dodaj usuniecie dnia i godziny :) -->
 <h2>Zapisane dni:</h2>
 <table border="1">
 <tr>

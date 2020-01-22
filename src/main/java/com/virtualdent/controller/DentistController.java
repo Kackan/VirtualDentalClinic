@@ -98,21 +98,17 @@ public class DentistController {
 		dentist.addVisit(visit);
 		visitService.deleteVisit(Integer.toString(id), Integer.toString(visit.getId()));
 		visitService.saveVisit(visit);
-		//service.saveDentist(dentist);
-		return "visit-result";
-		
-		//"xddredirect:/dentist/home";
+		return "redirect:/dentist/home";
 	}
 	
 	@RequestMapping("/editVisit")
-	public String editVisit(/*@RequestParam("idVisit") Integer id,*/@RequestParam Map<String,String>ids,Model model)
+	public String editVisit(@RequestParam Map<String,String>ids,Model model)
 	{
 		Map<String,Integer>map=visitService.editVisit(ids.get("idVisit"), ids.get("idDentist"));
 		
 		Visit visit=visitService.getVisit(map.get("visit"));
 		model.addAttribute("dentist",map.get("dentist"));
 		model.addAttribute("visit",visit);
-		//visitService.deleteVisit(ids.get("idVisit"), ids.get("idDentist"));
 		return "visit-edit-form";
 	}
 }

@@ -23,7 +23,8 @@ margin-bottom: 10px;
 <body>
 
 <div align="left">
-<a href="chooseDentist">Dodaj opinię: </a>
+<a href="chooseDentist">Dodaj opinię: </a><br/>
+<a href="/Virtual_Dental_Clinic/patient/home">Powrót</a>
 <p id="head">OPINIE:</p>
 
 <c:forEach items="${marks}" var="mark">

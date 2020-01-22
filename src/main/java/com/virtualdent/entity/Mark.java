@@ -67,10 +67,10 @@ public class Mark {
 	public void setDentist(Dentist dentist) {
 		this.dentist=dentist;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final int prime = 32;
 		int result = 1;
 		result = prime * result + ((author == null) ? 0 : author.hashCode());
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
@@ -110,5 +110,4 @@ public class Mark {
 			return false;
 		return true;
 	}
-	
 }

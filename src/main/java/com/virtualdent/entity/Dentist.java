@@ -51,7 +51,7 @@ public class Dentist implements Serializable {
 	private List<Visit> visits;
 	
 	
-	@OneToMany(mappedBy="dentist",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="dentist",fetch=FetchType.EAGER, cascade= {  CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE})
 	private List<Mark>marks;
 
 	public Dentist() {
@@ -154,6 +154,7 @@ public class Dentist implements Serializable {
 	
 	public void addComment(Mark mark)
 	{
+		
 		if(marks==null)
 		{
 			marks=new ArrayList<>();
